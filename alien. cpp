@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+int hitungPanjang(string s) {
+    int panjang = 0;
+    while (s[panjang] != '\0') {
+        panjang++;
+    }
+    return panjang;
+}
+
+void encryptMessage(string pesan) {
+    int n = hitungPanjang(pesan);
+    if (n == 0) return;
+
+    cout << pesan[0];
+    int prevValue = pesan[0] - 'A' + 1;
+
+    for (int i = 1; i < n; i++) {
+        int currValue = pesan[i] - 'A' + 1;
+        int newValue = currValue + prevValue;
+        
+        while (newValue > 26) {
+            newValue -= 26;
+        }
+
+        char newChar = newValue + 'A' - 1;
+        cout << newChar;
+
+        prevValue = currValue; 
+    }
+    cout << endl;
+}
+
+int main() {
+    string pesan;
+    cout << "Masukkan pesan: ";
+    cin >> pesan;
+    
+    cout << "Hasil enkripsi: ";
+    encryptMessage(pesan);
+    
+    return 0;
+}

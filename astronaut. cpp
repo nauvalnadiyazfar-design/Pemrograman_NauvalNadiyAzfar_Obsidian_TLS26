@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N, K;
+    cout << "Masukkan jumlah astronot (N): ";
+    cin >> N;
+    cout << "Masukkan nilai K awal: ";
+    cin >> K;
+
+    int astronot[1000];
+    for (int i = 0; i < N; i++) {
+        astronot[i] = i + 1;
+    }
+
+    int jumlahSisa = N;
+    int currentIndex = 0;
+
+    cout << "\nUrutan eliminasi:\n";
+    while (jumlahSisa > 1) {
+        int langkahDihitung = 0;
+        while (langkahDihitung < K - 1) {
+            currentIndex = (currentIndex + 1) % N;
+            if (astronot[currentIndex] != 0) {
+                langkahDihitung++;
+            }
+        }
+
+        while (astronot[currentIndex] == 0) {
+            currentIndex = (currentIndex + 1) % N;
+        }
+
+        int korban = astronot[currentIndex];
+        cout << "Astronot keluar: " << korban << endl;
+        astronot[currentIndex] = 0;
+        jumlahSisa--;
+
+        if (korban % 2 == 0) {
+            K = K + 2;
+        } else {
+            K = K - 1;
+        }
+
+        if (K < 2) {
+            K = 2;
+        }
+
+        currentIndex = (currentIndex + 1) % N;
+        while (jumlahSisa > 1 && astronot[currentIndex] == 0) {
+            currentIndex = (currentIndex + 1) % N;
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        if (astronot[i] != 0) {
+            cout << "\nAstronot terakhir yang bertahan: " << astronot[i] << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
